@@ -1,15 +1,12 @@
-// const express = require("express")
-// const mongoose = require("mongoose")
-// const dotenv = require("dotenv").config();
-// const app = express()
-// const bcrypt = require('bcrypt')
-
-
 //Import using ES6
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+import docRouter from "../documentation/index";
 
+
+
+ 
 
 dotenv.config();
 const app = express()
@@ -32,6 +29,8 @@ app.use(express.json())
 app.use("/api", contact_route)
 app.use("/api", users_route)
 app.use("/api", blog_route)
+app.use("/api/v1/documentation", docRouter);
+
 
 
 
