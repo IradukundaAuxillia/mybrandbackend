@@ -1,9 +1,8 @@
 import { Router } from "express";
-import docRouter from "../documentation/index";
+import docRouter from "../../documentation/index";
 
 
 const router = Router();
-router.get("/", welcome);
-router.use("/api/v1/documentation", docRouter);
+router.use("/v1/documentation", docRouter);
 
 export default router;

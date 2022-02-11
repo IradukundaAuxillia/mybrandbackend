@@ -115,7 +115,7 @@ describe("articles", () => {
         .set({
           'admin-token': Token,
         })
-        .send(updatearticles)
+        .send(updateblog)
         .expect(200)  
 
           done();

@@ -73,7 +73,7 @@ const options = {
   
 
 
-// view single article
+ // view single article
 
     '/api/articles/{d}': {
       get:{
@@ -111,7 +111,7 @@ const options = {
       
       
 
-// view all articles
+ // view all articles
 
     '/api/articles': {
       get: {
