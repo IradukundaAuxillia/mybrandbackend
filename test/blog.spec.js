@@ -6,11 +6,8 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import server from "../src/app.js";
 import request from "supertest";
-import path from "path";
 import "dotenv/config";
-import mocha from "mocha";
-import routes from "./";
-import connectDB from "./config/db";
+
 
 //Assertion style
 chai.should();
@@ -29,14 +26,14 @@ const updatePost = {
   ImageLink : "https://youtu.be/f3wOS11SP9I"
 };
 
-describe("Blog CRUD", () => {
+describe("articles", () => {
   //get all posts
 
-  describe("GET /api/Getblog", () => {
+  describe("GET /api/articles", () => {
     it("It Should GET all Posts", (done) => {
       chai
         .request(server)
-        .get("/api/Getblog")
+        .get("/api/articles/")
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
@@ -48,12 +45,12 @@ describe("Blog CRUD", () => {
 
   //get post by id
 
-  describe("GET /api/Getblog/:id", () => {
+  describe("GET /api/articles/:id", () => {
     it("It Should GET a Post by ID", (done) => {
       const _id = "61f6bd7b0713577b87e01a13";
       chai
         .request(server)
-        .get("/api/Getblog/" + _id)
+        .get("/api/articles/" + _id)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property("_id");
@@ -70,15 +67,15 @@ describe("Blog CRUD", () => {
 
   //post route
 
-  describe("POST Blog", () => {
-    let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ICJyaYUB7Xka4ezHWWnPsy_y9z0hT7t3CqcHMIvgyhhjeuiwjkakioq2akl.lqosdxec"
+  describe("POST articles", () => {
+    let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmNiNzQ1MDQwOTMzMGI0NDYwYWE1YiIsImlhdCI6MTY0NDI5ODU5NH0.supm186X515GN32LjbNciM5UxDLBb2cNM2cm4JOHdqQ"
   it("should post blog with valid credentials", (done) => {
     request(server)
-      .post("/api/Postblog")
+      .post("/api/articles/")
       .set({
           'admin-token': Token,
       })  
-      .send(testPost)
+      .send(testblog)
       .expect(200)
       
        done();
@@ -89,12 +86,12 @@ describe("Blog CRUD", () => {
 
   //delete route
 
-  describe("DELETE /api/Deleteblog/:id", () => {
-    let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWYzYTQ0MThkNDQwYzhlODE2ZDQwOWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NDMzODAzNjZ9.Ku9uyjYv-aYUB7Xka4ezHWWnPsy_y9z0hT7t3CqcHMI"
+  describe("DELETE /api/Deletearticles/:id", () => {
+    let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmNiNzQ1MDQwOTMzMGI0NDYwYWE1YiIsImlhdCI6MTY0NDI5ODU5NH0.supm186X515GN32LjbNciM5UxDLBb2cNM2cm4JOHdqQ"
     it("It Should DELETE a Post by ID", (done) => {
       const _id = "61f6bd7b0713577b87e01a13";
       request(server)
-        .delete("/api/Getblog/" + _id)
+        .delete("/api/articles/" + _id)
         .set({
           'admin-token': Token,
         })
@@ -109,16 +106,16 @@ describe("Blog CRUD", () => {
 
   //patch route
 
-  describe("PATCH /api/Updateblog/:id", () => {
-    let tempToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWYzYTQ0MThkNDQwYzhlODE2ZDQwOWQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NDMzODAzNjZ9.Ku9uyjYv-aYUB7Xka4ezHWWnPsy_y9z0hT7t3CqcHMI"
+  describe("PATCH /api/Updatearticles/:id", () => {
+    let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmNiNzQ1MDQwOTMzMGI0NDYwYWE1YiIsImlhdCI6MTY0NDI5ODU5NH0.supm186X515GN32LjbNciM5UxDLBb2cNM2cm4JOHdqQ"
     it("It Should PATCH a Post by ID", (done) => {
       const _id = "61f6bd7b0713577b87e01a13";
       request(server)
         .patch("/api/Updateblog/" + _id)
         .set({
-          'admin-token': tempToken,
+          'admin-token': Token,
         })
-        .send(updatePost)
+        .send(updatearticles)
         .expect(200)  
 
           done();

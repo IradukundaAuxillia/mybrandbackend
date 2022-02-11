@@ -1,16 +1,22 @@
+import chai from "chai";
+import chaiHttp from "chai-http";
+import server from "../src/app.js";
 import request from "supertest";
-import { expect } from "chai";
+
+chai.should();
+
+chai.use(chaiHttp);
 
 // import app from "../../app.js";
 import app from "../src/app.js";
 
-const tempUser = {
+const User = {
     UserName: "demjinz",
     Email: "test@test.com",
     Password: "1234567890",
 };
 
-const tempLogin = {
+const Login = {
     Email: "test@test.com",
     Password: "1234567890",
 }
@@ -27,7 +33,7 @@ describe("POST users", () => {
     it("should register new user with valid credentials", (done) => {
       request(app)
         .post("/api/register")
-        .send(tempUser)
+        .send(User)
         .expect(200)
         
          done();
@@ -41,7 +47,7 @@ describe("POST users", () => {
     it("shouldn't accept the email that already exists in the database", (done) => {
       request(app)
         .post("/api/register")
-        .send(tempUser)
+        .send(User)
         .expect(400)
          done();
         // .then((res) => {
@@ -52,10 +58,10 @@ describe("POST users", () => {
     });
 
     it("Should Login", (done) => {
-        let tempToken;
+        let Token;
         request(app)
           .post("/api/login")
-          .send(tempLogin)
+          .send(Login)
           .expect(200)
           done();
     });

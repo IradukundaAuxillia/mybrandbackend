@@ -38,12 +38,12 @@ chai.use(chaiHttp);
 
 describe("GET /api/contact", () => {
   it("It Should GET all Contact Form Queries", (done) => {
-    let tempToken = "QxMzA0MTF9vgtf3783902wiodjhy438wuehdfnskaopqiwueirghiweurdhfnwi874y83902qopaklmjVHDNynu1Y971XLjjk12GN4kbMCpLdPlRhiGPvfmdWk"
+    let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmNiNzQ1MDQwOTMzMGI0NDYwYWE1YiIsImlhdCI6MTY0NDI5ODU5NH0.supm186X515GN32LjbNciM5UxDLBb2cNM2cm4JOHdqQ"
     chai
       .request(server)
       .get("/api/contact")
       .set({
-        'auth-token': tempToken,
+        'auth-token': Token,
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -58,13 +58,13 @@ describe("GET /api/contact", () => {
 
 describe("GET /api/contact/:id", () => {
   it("It Should GET a Contact Form by ID", (done) => {
-    let tempToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmN2QzOTRlNWJiZDE5NDg5MGQyZGQ3Iiwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJJc3JhZWwifSwiaWF0IjoxNjQ0MTI2ODExLCJleHAiOjE2NDQxMzA0MTF9.jVHDNynu1Y971XLjjk12GN4kbMCpLdPlRhiGPvfmdWk"
+    let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmNiNzQ1MDQwOTMzMGI0NDYwYWE1YiIsImlhdCI6MTY0NDI5ODU5NH0.supm186X515GN32LjbNciM5UxDLBb2cNM2cm4JOHdqQ"
     const _id = "61f0fceb69b2259949e3ab88";
     chai
       .request(server)
       .get("/api/contact/" + _id)
       .set({
-        'auth-token': tempToken,
+        'auth-token': Token,
       })  
       .end((err, res) => {
         res.should.have.status(200);
@@ -83,13 +83,13 @@ describe("GET /api/contact/:id", () => {
 //delete a contact form query.
 
 describe("DELETE /api/contact/:id", () => {
-  let tempToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmN2QzOTRlNWJiZDE5NDg5MGQyZGQ3Iiwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJJc3JhZWwifSwiaWF0IjoxNjQ0MTI2ODExLCJleHAiOjE2NDQxMzA0MTF9.jVHDNynu1Y971XLjjk12GN4kbMCpLdPlRhiGPvfmdWk"
+  let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmNiNzQ1MDQwOTMzMGI0NDYwYWE1YiIsImlhdCI6MTY0NDI5ODU5NH0.supm186X515GN32LjbNciM5UxDLBb2cNM2cm4JOHdqQ"
   it("It Should DELETE a Contact Query by ID", (done) => {
     const _id = "61f11e689436d4e969d39b6a";
     request(server)
       .delete("/api/contact/" + _id)
       .set({
-        'auth-token': tempToken,
+        'auth-token': Token,
       })
       .expect(200)
 
