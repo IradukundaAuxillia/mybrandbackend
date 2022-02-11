@@ -7,8 +7,37 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "scripts": {
-    "test": "mocha  --timeout 10000000 ./src/test --require @babel/register --exit",
-    "start": "nodemon --exec babel-node src/app.js"
+    "build": "babel src -d dist --copy-files",
+    "test": "better-npm-run test",
+    "start": "nodemon --exec babel-node src/app.js",
+    "dev": "better-npm-run dev",
+    "coverage": "nyc npm run test"
+  },
+  "betterScripts": {
+    "dev": {
+      "command": "nodemon --exec babel-node src/app.js",
+      "env": {
+        "DB_CONNECT": "mongodb+srv://robertishimwe:kigali123@cluster0.rhbhy.mongodb.net/mySecondDatabase?retryWrites=true&w=majority",
+        "PORT": 5000
+      }
+    },
+    "test": {
+      "command": "nyc --reporter=text --reporter=lcov ./node_modules/.bin/mocha --timeout 100000 --exit --require @babel/register",
+      "env": {
+        "NODE_ENV": "test",
+        "PORT": 3000
+      }
+    },
+    "prod": {
+      "command": "node ./dist/app.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "nyc": {
+    "include": "src",
+    "exclude": "node_modules"
   },
   "keywords": [],
   "author": "",
@@ -16,12 +45,14 @@
   "dependencies": {
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.12",
+    "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "@babel/register": "^7.12.1",
+    "@babel/register": "^7.16.9",
     "@hapi/joi": "^15.0.3",
     "@types/chai-http": "^4.2.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "better-npm-run": "^0.1.1",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "cloudinary": "^1.28.1",
@@ -34,13 +65,10 @@
     "mocha": "^9.2.0",
     "mongoose": "^6.1.8",
     "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
     "supertest": "^6.2.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.3.0",
-    "yamljs": "^0.3.0",
-    "@babel/node": "^7.16.8"
-  },
-  "engines": {
-    "node": "v14.18.1"
+    "yamljs": "^0.3.0"
   }
 }
