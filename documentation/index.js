@@ -23,7 +23,7 @@ const options = {
         url: "http://localhost:3000",
       },
       {
-        url: "https://git.heroku.com/myapiportifolio.git",
+        url: "https://myapiportifolio.herokuapp.com/",
       },
     ],
 
@@ -63,16 +63,6 @@ const options = {
               }
             }
           },
-
-      
-      
-      
-      
-      
-      
-  
-
-
 // view single article
 
     '/api/articles/{d}': {

@@ -1,69 +1,118 @@
-import chai from "chai";
-import chaiHttp from "chai-http";
-import server from "../src/app.js";
-import request from "supertest";
+const chai      = require("chai");
+const chaiHttp = require("chai-http");
+const app    = require("../src/app.js");
+const  request  = require("supertest");
 
 chai.should();
 
 chai.use(chaiHttp);
 
-// import app from "../../app.js";
-import app from "../src/app.js";
-
-const User = {
-    UserName: "demjinz",
-    Email: "test@test.com",
-    Password: "1234567890",
+const userLogin = {
+        "userEmail":"andela@andela.com",
+        "userPassword":"Andela"
+};
+const userLogin2 = {
+  "userEmail":"andela@andela.com",
+  "userPassword":"Andel"
 };
 
-const Login = {
-    Email: "test@test.com",
-    Password: "1234567890",
-}
+const userRegister = {
+    "userName":"kevin",
+    "userEmail":"kett@andela.com",
+    "userPassword":"Andela"
+};
 
-//   let tempToken;
-
-  before(function (done) {
-    this.timeout(3000);
-    setTimeout(done, 2000);
-  });
+describe("Register & login", () => {
 
 
-describe("POST users", () => {
-    it("should register new user with valid credentials", (done) => {
-      request(app)
-        .post("/api/register")
-        .send(User)
-        .expect(200)
-        
-         done();
-        // .then((res) => {
-        //   expect(res.body.email).to.be.eql(tempUser.Email);
-        //   done();
-        // })
-        // .catch((err) => done(err));
-    });
+
+
+describe("GET /api/user/register", () => {
+    it("It Should Register a user", (done) => {
+    request(app)
+      .post("/api/user/register") 
+      .send(userRegister)
+      .end((err, res) => {
+        res.should.have.status(200);
+       done();
+      })
   
-    it("shouldn't accept the email that already exists in the database", (done) => {
-      request(app)
-        .post("/api/register")
-        .send(User)
-        .expect(400)
-         done();
-        // .then((res) => {
-        //     expect(res.body.message).to.be.eql("Email is already in use");
-        //     done();
-        // })
-        // .catch((err) => done(err));
-    });
-
-    it("Should Login", (done) => {
-        let Token;
-        request(app)
-          .post("/api/login")
-          .send(Login)
-          .expect(200)
-          done();
-    });
-
   });
+  
+  });
+  
+
+
+
+// login test
+
+
+describe("GET /api/user/login", () => {
+    it("It Should login a user", (done) => {
+    request(app)
+      .post("/api/user/login") 
+      .send(userLogin)
+      .end((err, res) => {
+        res.should.have.status(200);
+       done();
+      })
+  
+  });
+  
+  });
+
+ 
+describe("GET /api/user/login", () => {
+  it("It Should not login a user", (done) => {
+  request(app)
+    .post("/api/user/login") 
+    .send(userLogin2)
+    .end((err, res) => {
+      res.should.have.status(401);
+     done();
+    })
+
+});
+
+});
+
+
+
+describe("GET /api/user", () => {
+  it("It Should not Fetch all user", (done) => {
+    chai
+      .request(app)
+      .get("/api/user/")
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+      .timeout(10000);
+  });
+});
+
+
+
+describe("GET /api/user", () => {
+  let Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjdmOGIzMGY2NTlmMTQ4YTI0NTM4NCIsImlhdCI6MTY0NDE3NDExN30.HQg8meIfa_q3B-WfvYgMEcq-sjsU3pfWEV8P9jwPpn0"
+it("It Should not Fetch all user", (done) => {
+  request(app)
+    .get("/api/user")
+    .set({
+        'token': Token,
+    })  
+    .end((err, res) => {
+      res.should.have.status(200);
+     done();
+    })
+
+});
+
+});
+
+
+
+
+
+  
+});
